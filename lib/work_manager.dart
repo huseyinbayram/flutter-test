@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './works.dart';
+import './work_control.dart';
 
 class WorkManager extends StatefulWidget {
   final String startingWork;
@@ -31,22 +32,17 @@ class _WorkManagerState extends State<WorkManager> {
     super.didUpdateWidget(oldWidget);
   }
 
+  void _addWork(String name) {
+    setState(() {
+      _works.add(name);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     print('[WorkManager State] build()');
     return Column(children: [
-      Container(
-        margin: EdgeInsets.all(10),
-        child: RaisedButton(
-          color: Theme.of(context).primaryColor,
-          child: Text('Add Work'),
-          onPressed: () {
-            setState(() {
-              _works.add('Value Tester');
-            });
-          },
-        ),
-      ),
+      Container(margin: EdgeInsets.all(10), child: WorkControl(this._addWork)),
       Works(_works)
     ]);
   }
